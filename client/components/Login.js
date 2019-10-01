@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { logIn } from '../store/reducer';
 
-export default class Login extends Component {
+class Login extends Component {
   constructor() {
     super();
     this.state = {
       email: '',
       password: ''
     };
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(target) {
@@ -15,12 +19,18 @@ export default class Login extends Component {
     });
   }
 
+  handleSubmit(event) {
+    event.preventDefault();
+    const { email, password } = this.state;
+    this.props.logIn(email, password);
+  }
+
   render() {
     const { email, password } = this.state;
     return (
       <div>
         <h1>Login page</h1>
-        <form>
+        <form onSubmit={event => this.handleSubmit(event)}>
           <div>
             <label>Email:</label>
             <input
@@ -47,3 +57,12 @@ export default class Login extends Component {
     );
   }
 }
+
+const mapDispatchToProps = dispatch => ({
+  logIn: (email, password) => dispatch(logIn(email, password))
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(Login);
