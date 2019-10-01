@@ -13,10 +13,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(morgan('dev'));
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.resolve(__dirname, '..', 'public')));
+
+app.use('/auth', require('./auth'));
 
 app.use('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'public/index.html'));
+  res.sendFile(path.resolve(__dirname, '..', 'public', 'index.html'));
 });
 
 app.use((err, req, res, next) => {
@@ -24,7 +26,7 @@ app.use((err, req, res, next) => {
   res.status(500).send('Server did not respond.');
 });
 
-db.sync({ force: true });
+db.sync({ force: false });
 
 app.listen(PORT, () => {
   console.log(`Server is listening on port # ${PORT}`);

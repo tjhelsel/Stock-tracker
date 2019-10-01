@@ -44,7 +44,7 @@ describe('User model', () => {
       expect(user2).to.equal(undefined);
     });
   });
-
+  console.log(Date.now());
   // describe('instanceMethods', () => {
   //   describe('correctPassword', () => {
   //     // it('returns true if the password is correct', () => {
