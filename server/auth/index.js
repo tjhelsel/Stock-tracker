@@ -14,7 +14,7 @@ router.post('/login', async (req, res, next) => {
       console.log('Incorrect password for user: ', email);
       res.status(401).send('Wrong username or password');
     } else {
-      res.status(200).send('Success!');
+      res.status(200).json(user);
     }
   } catch (error) {
     next(error);
