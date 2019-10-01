@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "test",
+    "test": "mocha --exit \"./server/**/*.spec.js\" \"./client/**/*.spec.js\" \"./script/**/*.spec.js\"",
     "start": "webpack -w & nodemon server",
     "build": "webpack",
     "build-watch": "webpack -w",
@@ -22,21 +22,31 @@
   "homepage": "https://github.com/tjhelsel/Stock-tracker#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "passport": "^0.4.0",
+    "pg": "^7.12.1",
+    "pg-hstore": "^2.3.3",
     "react": "^16.10.1",
     "react-dom": "^16.10.1",
     "react-redux": "^7.1.1",
-    "redux": "^4.0.4"
+    "redux": "^4.0.4",
+    "sequelize": "^5.19.1"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
+    "@babel/polyfill": "^7.6.0",
     "@babel/preset-env": "^7.6.2",
     "@babel/preset-react": "^7.0.0",
+    "@babel/register": "^7.6.2",
     "babel-core": "^6.26.3",
     "babel-loader": "^8.0.6",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
+    "chai": "^4.2.0",
     "morgan": "^1.9.1",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
+    "supertest": "^4.0.2",
+    "supertest-session": "^4.0.0",
     "webpack": "^4.41.0",
     "webpack-cli": "^3.3.9"
   }

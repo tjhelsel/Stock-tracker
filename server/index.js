@@ -3,6 +3,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const path = require('path');
+const db = require('./models');
 
 const PORT = process.env.PORT || 3000;
 
@@ -23,9 +24,7 @@ app.use((err, req, res, next) => {
   res.status(500).send('Server did not respond.');
 });
 
-//
-//Sync db here;
-//
+db.sync({ force: true });
 
 app.listen(PORT, () => {
   console.log(`Server is listening on port # ${PORT}`);
