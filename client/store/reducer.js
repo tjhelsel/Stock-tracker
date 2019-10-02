@@ -6,9 +6,9 @@ const LOGIN_FAILURE = 'LOGIN_FAILURE';
 const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 const SIGNUP_FAILURE = 'SIGNUP_FAILURE';
 
-const loginSuccess = userId => ({
+const loginSuccess = user => ({
   type: LOGIN_SUCCESS,
-  userId
+  user
 });
 
 const loginFailure = () => ({
@@ -19,7 +19,7 @@ export const logIn = (email, password) => {
   return async dispatch => {
     try {
       const { data } = await axios.post('/auth/login', { email, password });
-      dispatch(loginSuccess(data.id));
+      dispatch(loginSuccess(data));
       history.push('/home');
     } catch (error) {
       dispatch(loginFailure());
@@ -50,12 +50,12 @@ export const createUser = user => {
   };
 };
 
-const initialState = { userId: null, loginFailed: false, signupFailed: false };
+const initialState = { user: null, loginFailed: false, signupFailed: false };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_SUCCESS:
-      return { ...state, userId: action.userId, loginFailed: false };
+      return { ...state, user: action.user, loginFailed: false };
     case LOGIN_FAILURE:
       return { ...state, loginFailed: true };
     case SIGNUP_SUCCESS:

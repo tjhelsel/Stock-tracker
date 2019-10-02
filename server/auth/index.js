@@ -6,7 +6,9 @@ router.post('/login', async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({
-      email
+      where: {
+        email
+      }
     });
     if (!user) {
       console.log('No such user: ', email);
@@ -31,7 +33,8 @@ router.post('/signup', async (req, res, next) => {
       email,
       password
     });
-    res.status(201).json(user);
+    const { cash, id } = user;
+    res.status(201).json({ firstName, lastName, email, cash, id });
   } catch (error) {
     next(error);
   }

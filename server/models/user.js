@@ -31,6 +31,11 @@ const User = db.define('user', {
     validate: {
       notEmpty: true
     }
+  },
+  cash: {
+    type: sequelize.INTEGER,
+    allowNull: false,
+    defaultValue: 500000
   }
 });
 
