@@ -1,17 +1,24 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { connect } from 'react-redux';
 
-const UserHome = props => {
-  const { user } = props;
-  return (
-    <div>
-      <h1>{`${user.firstName}'s portfolio`}</h1>
+class UserHome extends Component {
+  componentDidMount() {
+
+  }
+  
+  render() {
+
+    const { userId } = this.props;
+    return (
+      <div>
+      <h1>{`${userId}'s portfolio`}</h1>
     </div>
   );
-};
+  }
+}
 
 const mapStateToProps = state => ({
-  user: state.user
+  userId: state.userId
 });
 
 export default connect(mapStateToProps)(UserHome);
