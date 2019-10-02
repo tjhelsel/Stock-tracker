@@ -27,9 +27,17 @@ class Login extends Component {
 
   render() {
     const { email, password } = this.state;
+    const { loginFailed } = this.props;
     return (
       <div>
         <h1>Login page</h1>
+        {loginFailed ? (
+          <div>
+            <p>Incorrect email and/or password</p>
+          </div>
+        ) : (
+          ''
+        )}
         <form onSubmit={event => this.handleSubmit(event)}>
           <div>
             <label>Email:</label>
@@ -58,11 +66,15 @@ class Login extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  loginFailed: state.loginFailed
+});
+
 const mapDispatchToProps = dispatch => ({
   logIn: (email, password) => dispatch(logIn(email, password))
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Login);
