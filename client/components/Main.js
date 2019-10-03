@@ -1,10 +1,12 @@
 import React from 'react';
-import { Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import history from '../history';
 import Login from './Login';
 import UserHome from './UserHome';
 import Signup from './Signup';
+import BuyStocks from './BuyStocks';
+import SelectedStock from './SelectedStock';
 
 const Main = props => {
   const { user } = props;
@@ -13,7 +15,10 @@ const Main = props => {
       <nav>
         <h1>Welcome to Stock Trader!</h1>
         {user ? (
-          <h1>User info</h1>
+          <div>
+            <h1>User info</h1>
+            <Link to="/buy">Buy stocks</Link>
+          </div>
         ) : (
           <div>
             <Link to="/login">Log in</Link>
@@ -21,25 +26,27 @@ const Main = props => {
           </div>
         )}
       </nav>
-      <Switch>
-        {user ? (
-          // Routes below available only for logged in users
+      {user ? (
+        // Routes below available only for logged in users
+        <div>
           <Route exact path="/home" component={UserHome} />
-        ) : (
-          // Routes below available to non-logged in users
-          <Switch>
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/signup" component={Signup} />
-            <Route path="/" component={Login} />
-          </Switch>
-        )}
-      </Switch>
+          <Route path="/buy" component={BuyStocks} />
+          <Route path="/buy/:symbol" component={SelectedStock} />
+        </div>
+      ) : (
+        // Routes below available to non-logged in users
+        <Switch>
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/signup" component={Signup} />
+          <Route path="/" component={Login} />
+        </Switch>
+      )}
     </Router>
   );
 };
 
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.auth.user
 });
 
 export default connect(mapStateToProps)(Main);

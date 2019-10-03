@@ -9,13 +9,14 @@ class UserHome extends Component {
     return (
       <div>
         <h1>{`${firstName}'s portfolio`}</h1>
+        <h2>Cash: {`$${(cash / 100).toFixed(2)}`}</h2>
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.auth.user
 });
 
 export default connect(mapStateToProps)(UserHome);

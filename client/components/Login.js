@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { logIn } from '../store/reducer';
+import { logIn } from '../store/auth';
 
 class Login extends Component {
   constructor() {
@@ -67,7 +67,7 @@ class Login extends Component {
 }
 
 const mapStateToProps = state => ({
-  loginFailed: state.loginFailed
+  loginFailed: state.auth.loginFailed
 });
 
 const mapDispatchToProps = dispatch => ({
