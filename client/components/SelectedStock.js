@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchStock } from '../store/alphavantage';
+import { makePurchase } from '../store/purchase';
 
 class SelectedStock extends Component {
   constructor() {
@@ -18,6 +19,18 @@ class SelectedStock extends Component {
     this.setState({
       [event.target.name]: event.target.value
     });
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    const { stock, user } = this.props;
+    const { qty } = this.state;
+    this.props.makePurchase(
+      user.id,
+      stock['01. symbol'],
+      stock['05. price'] * 10000,
+      qty
+    );
   }
 
   render() {
@@ -60,7 +73,21 @@ class SelectedStock extends Component {
                 </tr>
                 <tr>
                   <th scope="row">Funds after transaction:</th>
-                  <td>${(user.cash - stock['05. price'] / 100).toFixed(2)} </td>
+                  <td>
+                    $
+                    {(
+                      (user.cash - stock['05. price'] * qty * 100) /
+                      100
+                    ).toFixed(2)}{' '}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input
+                      type="submit"
+                      onClick={event => this.handleSubmit(event)}
+                    />{' '}
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -79,7 +106,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchStock: symbol => dispatch(fetchStock(symbol))
+  fetchStock: symbol => dispatch(fetchStock(symbol)),
+  makePurchase: (userId, symbol, price, qty) =>
+    dispatch(makePurchase(userId, symbol, price, qty))
 });
 
 export default connect(

@@ -13,7 +13,7 @@ const Main = props => {
   return (
     <Router history={history}>
       <nav>
-        <h1>Welcome to Stock Trader!</h1>
+        <h1>Welcome to Stock-Tracker!</h1>
         {user ? (
           <div>
             <h1>User info</h1>

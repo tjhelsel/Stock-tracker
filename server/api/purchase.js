@@ -25,6 +25,15 @@ router.get('/:userId', async (req, res, next) => {
   }
 });
 
-
+router.post('/:userId', async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    const { symbol, price, qty } = req.body;
+    const purchase = await Purchase.create({ symbol, price, qty, userId });
+    res.status(201).json(purchase);
+  } catch (error) {
+    next(error);
+  }
+});
 
 module.exports = router;

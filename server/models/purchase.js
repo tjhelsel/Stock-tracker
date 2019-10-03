@@ -10,10 +10,12 @@ const Purchase = db.define('purchases', {
     }
   },
   price: {
-    type: sequelize.INTEGER
+    type: sequelize.INTEGER,
+    allowNull: false
   },
   qty: {
     type: sequelize.INTEGER,
+    allowNull: false,
     validate: {
       min: 1
     }
