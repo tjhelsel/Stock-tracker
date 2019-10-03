@@ -3,7 +3,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const path = require('path');
-const db = require('./models');
+const db = require('./db');
 
 const PORT = process.env.PORT || 3000;
 
@@ -16,6 +16,7 @@ app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
 app.use('/auth', require('./auth'));
+app.use('/api/purchases', require('./api/purchase'));
 
 app.use('*', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));

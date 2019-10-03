@@ -1,5 +1,5 @@
 const sequelize = require('sequelize');
-const db = require('./index');
+const db = require('../db');
 
 const User = db.define('user', {
   firstName: {
@@ -35,7 +35,10 @@ const User = db.define('user', {
   cash: {
     type: sequelize.INTEGER,
     allowNull: false,
-    defaultValue: 500000
+    defaultValue: 500000,
+    validate: {
+      min: 0
+    }
   }
 });
 
