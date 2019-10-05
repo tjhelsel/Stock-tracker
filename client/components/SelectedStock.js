@@ -28,7 +28,7 @@ class SelectedStock extends Component {
     this.props.makePurchase(
       user.id,
       stock['01. symbol'],
-      stock['05. price'] * 10000,
+      stock['05. price'],
       qty
     );
   }
@@ -74,11 +74,7 @@ class SelectedStock extends Component {
                 <tr>
                   <th scope="row">Funds after transaction:</th>
                   <td>
-                    $
-                    {(
-                      (user.cash - stock['05. price'] * qty * 100) /
-                      100
-                    ).toFixed(2)}{' '}
+                    ${(user.cash / 100 - stock['05. price'] * qty).toFixed(2)}
                   </td>
                 </tr>
                 <tr>
@@ -86,7 +82,8 @@ class SelectedStock extends Component {
                     <input
                       type="submit"
                       onClick={event => this.handleSubmit(event)}
-                    />{' '}
+                      disabled={user.cash < stock['05. price'] * qty}
+                    />
                   </td>
                 </tr>
               </tbody>

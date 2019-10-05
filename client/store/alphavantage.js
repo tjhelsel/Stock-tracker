@@ -30,6 +30,7 @@ export const fetchStocks = query => {
 export const fetchStock = symbol => {
   return async dispatch => {
     try {
+      console.log('fetchstock called');
       const { data } = await axios.get(
         `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${apiKey}`
       );

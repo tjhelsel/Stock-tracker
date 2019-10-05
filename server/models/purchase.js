@@ -11,7 +11,13 @@ const Purchase = db.define('purchases', {
   },
   price: {
     type: sequelize.INTEGER,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      min: 0
+    },
+    set(price) {
+      this.setDataValue('price', price * 10000);
+    }
   },
   qty: {
     type: sequelize.INTEGER,

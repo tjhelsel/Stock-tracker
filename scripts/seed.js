@@ -7,7 +7,7 @@ async function seed() {
   await db.sync({ force: true });
   console.log('db synced!');
 
-  const users = await Promise.all([
+  await Promise.all([
     User.create({
       email: 'jdoe@email.com',
       password: '123',
@@ -28,40 +28,40 @@ async function seed() {
     })
   ]);
 
-  const purchases = await Promise.all([
+  await Promise.all([
     Purchase.create({
       symbol: 'MSFT',
-      price: 1362800,
+      price: 136.28,
       qty: 20,
       userId: 1
     }),
     Purchase.create({
       symbol: '300135.SZ',
-      price: 26100,
+      price: 2.61,
       qty: 35,
       userId: 1
     }),
     Purchase.create({
       symbol: 'SNE',
-      price: 1112800,
+      price: 111.28,
       qty: 35,
       userId: 2
     }),
     Purchase.create({
       symbol: 'XIACY',
-      price: 75200,
+      price: 7.52,
       qty: 100,
       userId: 3
     }),
     Purchase.create({
       symbol: 'MSFT',
-      price: 1320000,
+      price: 132.0,
       qty: 50,
       userId: 1
     }),
     Purchase.create({
       symbol: 'SNE',
-      price: 1182800,
+      price: 118.28,
       qty: 20,
       userId: 2
     })

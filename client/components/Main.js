@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { Router, Switch, Route, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import history from '../history';
 import Login from './Login';
@@ -30,8 +30,8 @@ const Main = props => {
         // Routes below available only for logged in users
         <div>
           <Route exact path="/home" component={UserHome} />
-          <Route path="/buy" component={BuyStocks} />
-          <Route path="/buy/:symbol" component={SelectedStock} />
+          <Route exact path="/buy" component={BuyStocks} />
+          <Route exact path="/buy/:symbol" component={SelectedStock} />
         </div>
       ) : (
         // Routes below available to non-logged in users

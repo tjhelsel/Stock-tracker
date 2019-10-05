@@ -8,7 +8,7 @@ class UserHome extends Component {
     const { id, cash, firstName, lastName } = this.props.user;
     return (
       <div>
-        <h1>{`${firstName}'s portfolio`}</h1>
+        <h1>{`${firstName} ${lastName}'s portfolio`}</h1>
         <h2>Cash: {`$${(cash / 100).toFixed(2)}`}</h2>
       </div>
     );

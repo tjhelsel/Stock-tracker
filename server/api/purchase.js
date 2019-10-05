@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Purchase } = require('../models');
+const { Purchase, User } = require('../models');
 
 router.get('/', async (req, res, next) => {
   try {
@@ -29,6 +29,14 @@ router.post('/:userId', async (req, res, next) => {
   try {
     const { userId } = req.params;
     const { symbol, price, qty } = req.body;
+    const totalPrice = Math.round(price * 100 * qty);
+    const user = await User.findByPk(userId);
+    if (user.cash < totalPrice) {
+      throw new Error('Insufficient funds');
+    }
+    user.cash = user.cash - totalPrice;
+    await user.save({ fields: ['cash'] });
+
     const purchase = await Purchase.create({ symbol, price, qty, userId });
     res.status(201).json(purchase);
   } catch (error) {

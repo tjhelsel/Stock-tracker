@@ -1,4 +1,5 @@
 import axios from 'axios';
+import history from '../history';
 
 const GOT_PURCHASES = 'GOT_PURCHASES';
 const NEW_PURCHASE = 'NEW_PURCHASE';
@@ -25,7 +26,6 @@ export const getPurchases = userId => {
 };
 
 export const makePurchase = (userId, symbol, price, qty) => {
-  console.log('body', symbol, price, qty);
   return async dispatch => {
     try {
       const purchase = await axios.post(`/api/purchases/${userId}`, {
@@ -34,6 +34,7 @@ export const makePurchase = (userId, symbol, price, qty) => {
         qty
       });
       dispatch(newPurchase(purchase));
+      history.push('/home');
     } catch (error) {
       console.error(error);
     }
