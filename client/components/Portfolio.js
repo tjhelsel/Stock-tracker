@@ -9,13 +9,32 @@ class Portfolio extends Component {
   }
 
   render() {
-    const { firstName, lastName, cash } = this.props.user;
+    const { firstName, lastName } = this.props.user;
     const { totalValue, values } = this.props.portfolio;
     return (
       <div>
         <h1>{`${firstName} ${lastName}'s portfolio`}</h1>
-        <h2>Total value: {totalValue}</h2>
-        <h2>Cash: {`$${(cash / 100).toFixed(2)}`}</h2>
+        <h2>Portfolio value: ${totalValue}</h2>
+        <table>
+          <tbody>
+            <tr>
+              <th scope="col">Ticker symbol</th>
+              <th scope="col">Shares owned</th>
+              <th scope="col">Share value</th>
+              <th scope="col">Total value</th>
+            </tr>
+            {values.map(value => {
+              return (
+                <tr key={value.symbol} className={value.priceTrend}>
+                  <td> {value.symbol} </td>
+                  <td> {value.qty} </td>
+                  <td> {value.curPrice}</td>
+                  <td>$ {value.value} </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
     );
   }

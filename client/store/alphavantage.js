@@ -3,7 +3,7 @@ const apiKey = process.env.API_KEY;
 
 const SEARCH_RESULTS = 'SEARCH_RESULTS';
 const SELECTED_STOCK = 'SELECTED_STOCK';
-const PORTFOLIO_VALUES = 'PORTFOLIO_VALUES';
+const SEARCH_FAILED = 'SEARCH_FAILED';
 
 const searchResults = results => ({
   type: SEARCH_RESULTS,
@@ -15,6 +15,9 @@ const selectedStock = stock => ({
   stock
 });
 
+const searchFailed = () => ({
+  type: SEARCH_FAILED
+});
 
 export const fetchStocks = query => {
   return async dispatch => {
@@ -22,7 +25,11 @@ export const fetchStocks = query => {
       const { data } = await axios.get(
         `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${query}&apikey=${apiKey}`
       );
-      dispatch(searchResults(data.bestMatches || []));
+      if (data.bestMatches.length) {
+        dispatch(searchResults(data.bestMatches));
+      } else {
+        dispatch(searchFailed());
+      }
     } catch (error) {
       console.error(error);
     }
@@ -42,15 +49,20 @@ export const fetchStock = symbol => {
   };
 };
 
-
-const initialState = { searchResults: [], currentStock: {}};
+const initialState = {
+  searchResults: [],
+  currentStock: {},
+  searchFailed: false
+};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case SEARCH_RESULTS:
-      return { ...state, searchResults: action.results };
+      return { ...state, searchResults: action.results, searchFailed: false };
     case SELECTED_STOCK:
       return { ...state, currentStock: action.stock };
+    case SEARCH_FAILED:
+      return { ...state, searchFailed: true };
     default:
       return state;
   }

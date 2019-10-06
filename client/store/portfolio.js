@@ -35,7 +35,7 @@ const countStocks = purchases => {
 };
 
 const calculateValues = async stockCounts => {
-  const vals = [];
+  const values = [];
   let totalValue = 0;
   for (let symbol in stockCounts) {
     if (stockCounts.hasOwnProperty(symbol)) {
@@ -44,24 +44,33 @@ const calculateValues = async stockCounts => {
       );
 
       const quote = data['Global Quote'];
+      const curPrice = +quote['05. price'];
+      const openPrice = +quote['02. open'];
+      const qty = +stockCounts[symbol];
+      const value = +(qty * curPrice).toFixed(2);
+      let priceTrend;
 
-      const curPrice = quote['05. price'];
-      const openPrice = quote['02. open'];
-      const qty = stockCounts[symbol];
-      const value = qty * curPrice;
+      if (curPrice === openPrice) {
+        priceTrend = 'same';
+      } else if (curPrice < openPrice) {
+        priceTrend = 'decreasing';
+      } else {
+        priceTrend = 'increasing';
+      }
 
       const stock = {
         symbol,
         openPrice,
+        priceTrend,
         curPrice,
         value,
         qty
       };
-      vals.push(stock);
-      totalValue += value;
+      values.push(stock);
+      totalValue += +value;
     }
   }
-  return { totalValue, vals };
+  return { totalValue, values };
 };
 
 const initialState = { totalValue: 0, values: [] };
