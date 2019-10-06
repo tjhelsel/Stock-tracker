@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Portfolio from './Portfolio';
+import BuyStocks from './BuyStocks';
 
 class UserHome extends Component {
   componentDidMount() {}
@@ -8,8 +10,8 @@ class UserHome extends Component {
     const { id, cash, firstName, lastName } = this.props.user;
     return (
       <div>
-        <h1>{`${firstName} ${lastName}'s portfolio`}</h1>
-        <h2>Cash: {`$${(cash / 100).toFixed(2)}`}</h2>
+        <Portfolio />
+        <BuyStocks />
       </div>
     );
   }

@@ -3,6 +3,7 @@ const apiKey = process.env.API_KEY;
 
 const SEARCH_RESULTS = 'SEARCH_RESULTS';
 const SELECTED_STOCK = 'SELECTED_STOCK';
+const PORTFOLIO_VALUES = 'PORTFOLIO_VALUES';
 
 const searchResults = results => ({
   type: SEARCH_RESULTS,
@@ -13,6 +14,7 @@ const selectedStock = stock => ({
   type: SELECTED_STOCK,
   stock
 });
+
 
 export const fetchStocks = query => {
   return async dispatch => {
@@ -30,7 +32,6 @@ export const fetchStocks = query => {
 export const fetchStock = symbol => {
   return async dispatch => {
     try {
-      console.log('fetchstock called');
       const { data } = await axios.get(
         `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${apiKey}`
       );
@@ -41,7 +42,8 @@ export const fetchStock = symbol => {
   };
 };
 
-const initialState = { searchResults: [], currentStock: {} };
+
+const initialState = { searchResults: [], currentStock: {}};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {

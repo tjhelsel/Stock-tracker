@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User } = require('../models');
+const { User, Purchase } = require('../models');
 const passport = require('passport');
 
 router.post('/login', async (req, res, next) => {
@@ -8,7 +8,8 @@ router.post('/login', async (req, res, next) => {
     const user = await User.findOne({
       where: {
         email
-      }
+      },
+      include: [{ model: Purchase }]
     });
     if (!user) {
       console.log('No such user: ', email);
@@ -17,7 +18,8 @@ router.post('/login', async (req, res, next) => {
       console.log('Incorrect password for user: ', email);
       res.status(401).send('Wrong username or password');
     } else {
-      res.status(200).json(user);
+      const { id, firstName, lastName, cash, purchases } = user;
+      res.status(200).json({ id, firstName, lastName, cash, purchases });
     }
   } catch (error) {
     next(error);

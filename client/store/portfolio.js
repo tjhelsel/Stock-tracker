@@ -1,0 +1,78 @@
+import axios from 'axios';
+
+const apiKey = process.env.API_KEY;
+
+const PORTFOLIO_VALUES = 'PORTFOLIO_VALUES';
+
+const portfolioValues = portfolio => ({
+  type: PORTFOLIO_VALUES,
+  portfolio
+});
+
+export const getPortfolio = purchases => {
+  return async dispatch => {
+    try {
+      const stockCounts = countStocks(purchases);
+      const portfolio = await calculateValues(stockCounts);
+      dispatch(portfolioValues(portfolio));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+const countStocks = purchases => {
+  const stockCounts = {};
+  purchases.forEach(stock => {
+    const { symbol, qty } = stock;
+    if (stockCounts.hasOwnProperty(symbol)) {
+      stockCounts[symbol] += qty;
+    } else {
+      stockCounts[symbol] = qty;
+    }
+  });
+  return stockCounts;
+};
+
+const calculateValues = async stockCounts => {
+  const vals = [];
+  let totalValue = 0;
+  for (let symbol in stockCounts) {
+    if (stockCounts.hasOwnProperty(symbol)) {
+      const { data } = await axios.get(
+        `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${apiKey}`
+      );
+
+      const quote = data['Global Quote'];
+
+      const curPrice = quote['05. price'];
+      const openPrice = quote['02. open'];
+      const qty = stockCounts[symbol];
+      const value = qty * curPrice;
+
+      const stock = {
+        symbol,
+        openPrice,
+        curPrice,
+        value,
+        qty
+      };
+      vals.push(stock);
+      totalValue += value;
+    }
+  }
+  return { totalValue, vals };
+};
+
+const initialState = { totalValue: 0, values: [] };
+
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case PORTFOLIO_VALUES:
+      return action.portfolio;
+    default:
+      return state;
+  }
+};
+
+export default reducer;

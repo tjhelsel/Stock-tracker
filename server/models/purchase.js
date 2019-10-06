@@ -33,4 +33,5 @@ const Purchase = db.define('purchases', {
   }
 });
 
+
 module.exports = Purchase;

@@ -72,7 +72,7 @@ class SelectedStock extends Component {
                   <td>${(user.cash / 100).toFixed(2)}</td>
                 </tr>
                 <tr>
-                  <th scope="row">Funds after transaction:</th>
+                  <th scope="row">Funds after purchase:</th>
                   <td>
                     ${(user.cash / 100 - stock['05. price'] * qty).toFixed(2)}
                   </td>
