@@ -15,6 +15,18 @@ const loginFailure = () => ({
   type: LOGIN_FAILURE
 });
 
+export const me = () => async dispatch => {
+  try {
+    const { data } = await axios.get('/auth/me');
+    if (data) {
+      await axios.get('')
+    }
+    dispatch(loginSuccess(data));
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 export const logIn = (email, password) => {
   return async dispatch => {
     try {

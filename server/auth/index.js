@@ -1,6 +1,5 @@
 const router = require('express').Router();
 const { User, Purchase } = require('../models');
-const passport = require('passport');
 
 router.post('/login', async (req, res, next) => {
   try {
@@ -14,11 +13,12 @@ router.post('/login', async (req, res, next) => {
     if (!user) {
       console.log('No such user: ', email);
       res.status(401).send('Wrong username or password');
-    } else if (password !== user.password) {
+    } else if (!user.correctPassword(password)) {
       console.log('Incorrect password for user: ', email);
       res.status(401).send('Wrong username or password');
     } else {
       const { id, firstName, lastName, cash, purchases } = user;
+      req.session.user = user;
       res.status(200).json({ id, firstName, lastName, cash, purchases });
     }
   } catch (error) {
@@ -40,6 +40,10 @@ router.post('/signup', async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+});
+
+router.get('/me', (req, res) => {
+  res.json(req.session.user);
 });
 
 module.exports = router;

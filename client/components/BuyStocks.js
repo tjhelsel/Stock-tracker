@@ -43,24 +43,24 @@ class BuyStocks extends Component {
               />
               <button type="submit">Search</button>
             </div>
+            <ul>
+              {stocks.map(stock => {
+                const symbol = stock['1. symbol'];
+                return (
+                  <li key={symbol}>
+                    <Link to={`/portfolio/buy/${symbol}`}>
+                      {symbol} -- {stock['2. name']}
+                    </Link>
+                  </li>
+                );
+              })}
+              {searchFailed ? (
+                <p>No results found. Please try another query.</p>
+              ) : (
+                ''
+              )}
+            </ul>
           </form>
-          <ul>
-            {stocks.map(stock => {
-              const symbol = stock['1. symbol'];
-              return (
-                <li key={symbol}>
-                  <Link to={`/portfolio/buy/${symbol}`}>
-                    {symbol} -- {stock['2. name']}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-          {searchFailed ? (
-            <p>No results found. Please try another query.</p>
-          ) : (
-            ''
-          )}
         </div>
       </div>
     );
