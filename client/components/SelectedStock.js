@@ -40,7 +40,6 @@ class SelectedStock extends Component {
       <div>
         {stock ? (
           <div>
-            <h1>Stock details:</h1>
             <table>
               <tbody>
                 <tr>
@@ -78,7 +77,7 @@ class SelectedStock extends Component {
                   </td>
                 </tr>
                 <tr>
-                  <td>
+                  <td colSpan="2">
                     <input
                       type="submit"
                       onClick={event => this.handleSubmit(event)}

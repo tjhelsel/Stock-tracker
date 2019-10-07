@@ -33,21 +33,23 @@ class BuyStocks extends Component {
         <div>
           <h1>Buy stocks</h1>
           <h2>Cash available: ${(cash / 100).toFixed(2)}</h2>
-          <form onSubmit={event => this.handleSubmit(event)}>
-            <label>Search for stocks:</label>
-            <input
-              name="query"
-              value={query}
-              onChange={event => this.handleChange(event)}
-            />
-            <button type="submit">Search</button>
+          <form id="buy-form" onSubmit={event => this.handleSubmit(event)}>
+            <div>
+              <label>Search by company or ticker symbol:</label>
+              <input
+                name="query"
+                value={query}
+                onChange={event => this.handleChange(event)}
+              />
+              <button type="submit">Search</button>
+            </div>
           </form>
           <ul>
             {stocks.map(stock => {
               const symbol = stock['1. symbol'];
               return (
                 <li key={symbol}>
-                  <Link to={`/buy/${symbol}`}>
+                  <Link to={`/portfolio/buy/${symbol}`}>
                     {symbol} -- {stock['2. name']}
                   </Link>
                 </li>
@@ -67,7 +69,6 @@ class BuyStocks extends Component {
 
 const mapStateToProps = state => ({
   stocks: state.alphavantage.searchResults,
-  selected: state.alphavantage.selectedStock,
   searchFailed: state.alphavantage.searchFailed,
   cash: state.auth.user.cash
 });

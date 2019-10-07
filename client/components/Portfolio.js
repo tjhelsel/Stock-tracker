@@ -14,21 +14,25 @@ class Portfolio extends Component {
     return (
       <div>
         <h1>{`${firstName} ${lastName}'s portfolio`}</h1>
-        <h2>Portfolio value: ${totalValue}</h2>
+        <h2>Portfolio value: ${totalValue.toFixed(2)}</h2>
         <table>
-          <tbody>
+          <thead>
             <tr>
               <th scope="col">Ticker symbol</th>
               <th scope="col">Shares owned</th>
-              <th scope="col">Share value</th>
+              <th scope="col">Current value</th>
+              <th scope="col">Today's trend</th>
               <th scope="col">Total value</th>
             </tr>
+          </thead>
+          <tbody>
             {values.map(value => {
               return (
                 <tr key={value.symbol} className={value.priceTrend}>
                   <td> {value.symbol} </td>
                   <td> {value.qty} </td>
                   <td> {value.curPrice}</td>
+                  <td>{value.priceTrend}</td>
                   <td>$ {value.value} </td>
                 </tr>
               );

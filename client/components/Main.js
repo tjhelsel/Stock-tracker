@@ -1,45 +1,39 @@
 import React from 'react';
-import { Router, Switch, Route, Link } from 'react-router-dom';
+import { Router, Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import history from '../history';
 import Login from './Login';
 import UserHome from './UserHome';
 import Signup from './Signup';
-import BuyStocks from './BuyStocks';
 import SelectedStock from './SelectedStock';
+import Transactions from './Transactions';
+import Navbar from './Navbar';
 
 const Main = props => {
   const { user } = props;
   return (
     <Router history={history}>
-      <nav>
-        <h1>Welcome to Stock-Tracker!</h1>
-        {user ? (
-          <div>
-            <h1>User info</h1>
-            <Link to="/buy">Buy stocks</Link>
-          </div>
-        ) : (
-          <div>
-            <Link to="/login">Log in</Link>
-            <Link to="/signup">Sign up</Link>
-          </div>
-        )}
-      </nav>
+      <Navbar />
       {user ? (
         // Routes below available only for logged in users
-        <div>
-          <Route exact path="/home" component={UserHome} />
-          <Route exact path="/buy" component={BuyStocks} />
-          <Route exact path="/buy/:symbol" component={SelectedStock} />
+        <div className="content">
+          <Route path="/portfolio" component={UserHome} />
+          <Route
+            exact
+            path="/portfolio/buy/:symbol"
+            component={SelectedStock}
+          />
+          <Route exact path="/transactions" component={Transactions} />
         </div>
       ) : (
         // Routes below available to non-logged in users
-        <Switch>
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/signup" component={Signup} />
-          <Route path="/" component={Login} />
-        </Switch>
+        <div className="content">
+          <Switch>
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/signup" component={Signup} />
+            <Route path="/" component={Login} />
+          </Switch>
+        </div>
       )}
     </Router>
   );

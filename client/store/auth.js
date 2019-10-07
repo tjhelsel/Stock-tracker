@@ -20,7 +20,7 @@ export const logIn = (email, password) => {
     try {
       const { data } = await axios.post('/auth/login', { email, password });
       dispatch(loginSuccess(data));
-      history.push('/home');
+      history.push('/portfolio');
     } catch (error) {
       dispatch(loginFailure());
       history.push('/login');

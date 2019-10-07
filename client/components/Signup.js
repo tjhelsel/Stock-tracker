@@ -47,7 +47,6 @@ class Signup extends Component {
 
     return (
       <div>
-        <h1>Sign up for Stock-Tracker</h1>
         <h2>Enter your information below to create an account</h2>
         <form onSubmit={event => this.handleSubmit(event)}>
           <div>

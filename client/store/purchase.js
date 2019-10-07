@@ -34,7 +34,7 @@ export const makePurchase = (userId, symbol, price, qty) => {
         qty
       });
       dispatch(newPurchase(purchase));
-      history.push('/home');
+      history.push('/portfolio');
     } catch (error) {
       console.error(error);
     }

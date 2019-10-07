@@ -1,0 +1,137 @@
+.decreasing {
+  color: red;
+}
+
+.increasing {
+  color: green;
+}
+
+.same {
+  color: gray;
+}
+
+table {
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+  border: 3px solid black;
+}
+
+thead {
+  font-size: large;
+  color: white;
+  background-color: black;
+}
+
+th,
+td {
+  padding: 20px;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: lightgrey;
+}
+
+tbody tr:nth-child(even) {
+  background-color: white;
+}
+
+.links {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 3em;
+  padding: 1em;
+}
+
+.links > a {
+  padding: 10px;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.main-container > div {
+  width: 50%;
+}
+
+.main-container table {
+  flex-grow: 1;
+}
+
+.main-container form {
+  flex-shrink: 1;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  margin: 3em auto;
+  border: 3px solid black;
+  padding: 2em;
+  width: 20%;
+}
+
+form > div {
+  margin: 1em auto;
+  width: 100%;
+}
+
+input {
+  width: 100%;
+}
+
+.alert {
+  color: red;
+  margin: 0;
+}
+
+body {
+  text-align: center;
+}
+
+#navbar {
+  overflow: hidden;
+  background-color: #333;
+  color: #f2f2f2;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 2em;
+}
+
+#navbar a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+#navbar a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+#navbar a.active {
+  background-color: #4caf50;
+  color: white;
+}
+
+.content {
+  padding-top: 60px;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+#buy-form {
+  width: 80%;
+}

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logIn } from '../store/auth';
 
@@ -30,15 +31,15 @@ class Login extends Component {
     const { loginFailed } = this.props;
     return (
       <div>
-        <h1>Login page</h1>
-        {loginFailed ? (
-          <div>
-            <p>Incorrect email and/or password</p>
-          </div>
-        ) : (
-          ''
-        )}
         <form onSubmit={event => this.handleSubmit(event)}>
+          <h1>User login</h1>
+          {loginFailed ? (
+            <div className="alert">
+              <p>Incorrect email and/or password</p>
+            </div>
+          ) : (
+            ''
+          )}
           <div>
             <label>Email:</label>
             <input
@@ -61,6 +62,10 @@ class Login extends Component {
           </div>
           <input type="submit" value="log in" />
         </form>
+        <div>
+          <h3>Don't have an account? </h3>
+          <Link to="/signup">Sign up now</Link>
+        </div>
       </div>
     );
   }
