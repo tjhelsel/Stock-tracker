@@ -146,12 +146,12 @@ body {
   margin: 0 auto;
 }
 
-ul {
-  list-style-type: none;
-}
-
 #transactions {
   width: 50em;
   justify-content: center;
   margin: 0 auto;
+}
+
+ul {
+  list-style-type: none;
 }
