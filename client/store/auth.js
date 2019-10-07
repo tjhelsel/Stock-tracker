@@ -5,6 +5,7 @@ const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 const LOGIN_FAILURE = 'LOGIN_FAILURE';
 const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 const SIGNUP_FAILURE = 'SIGNUP_FAILURE';
+const LOGOUT = 'LOGOUT';
 
 const loginSuccess = user => ({
   type: LOGIN_SUCCESS,
@@ -15,11 +16,26 @@ const loginFailure = () => ({
   type: LOGIN_FAILURE
 });
 
+const logoutSuccess = () => ({
+  type: LOGOUT
+});
+
+export const logOut = () => {
+  return async dispatch => {
+    try {
+      await axios.post('/logout');
+      dispatch(logoutSuccess());
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
 export const me = () => async dispatch => {
   try {
     const { data } = await axios.get('/auth/me');
     if (data) {
-      await axios.get('')
+      await axios.get('');
     }
     dispatch(loginSuccess(data));
   } catch (err) {
@@ -74,6 +90,8 @@ const reducer = (state = initialState, action) => {
       return { ...state, signupFailed: false };
     case SIGNUP_FAILURE:
       return { ...state, signupFailed: true };
+    case LOGOUT:
+      return { ...state, user: null };
     default:
       return state;
   }

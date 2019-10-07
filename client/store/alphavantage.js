@@ -1,5 +1,5 @@
 import axios from 'axios';
-const apiKey = process.env.API_KEY;
+const searchKey = process.env.SEARCH_KEY;
 
 const SEARCH_RESULTS = 'SEARCH_RESULTS';
 const SELECTED_STOCK = 'SELECTED_STOCK';
@@ -23,7 +23,7 @@ export const fetchStocks = query => {
   return async dispatch => {
     try {
       const { data } = await axios.get(
-        `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${query}&apikey=${apiKey}`
+        `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${query}&apikey=${searchKey}`
       );
       if (data.bestMatches.length) {
         dispatch(searchResults(data.bestMatches));
@@ -40,7 +40,7 @@ export const fetchStock = symbol => {
   return async dispatch => {
     try {
       const { data } = await axios.get(
-        `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${apiKey}`
+        `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${searchKey}`
       );
       dispatch(selectedStock(data));
     } catch (error) {

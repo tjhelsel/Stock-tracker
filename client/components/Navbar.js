@@ -8,6 +8,10 @@ class Navbar extends Component {
     this.props.me();
   }
 
+  signOut(event) {
+    event.preventDefault();
+  }
+
   render() {
     const { user } = this.props;
     return (
@@ -17,6 +21,7 @@ class Navbar extends Component {
           <div className="links">
             <Link to="/portfolio">Buy stocks</Link>
             <Link to="/transactions">Transactions</Link>
+            <a onClick={event => this.signOut(event)}>Sign out</a>
           </div>
         ) : (
           <div className="links">

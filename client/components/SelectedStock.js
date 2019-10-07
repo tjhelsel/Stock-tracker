@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchStock } from '../store/alphavantage';
 import { makePurchase } from '../store/purchase';
+import history from '../history';
 
 class SelectedStock extends Component {
   constructor() {
@@ -28,7 +29,7 @@ class SelectedStock extends Component {
     this.props.makePurchase(
       user.id,
       stock['01. symbol'],
-      stock['05. price'],
+      (+stock['05. price']).toFixed(2),
       qty
     );
   }
@@ -37,7 +38,7 @@ class SelectedStock extends Component {
     const { stock, user } = this.props;
     const { qty } = this.state;
     return (
-      <div>
+      <div className="buy-stocks">
         {stock ? (
           <div>
             <table>
@@ -82,6 +83,11 @@ class SelectedStock extends Component {
                       type="submit"
                       onClick={event => this.handleSubmit(event)}
                       disabled={user.cash < stock['05. price'] * qty}
+                    />
+                    <button
+                      type="button"
+                      value="Cancel"
+                      onClick={() => history.push('/portfolio')}
                     />
                   </td>
                 </tr>

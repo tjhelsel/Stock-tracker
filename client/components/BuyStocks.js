@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { fetchStocks, fetchStock } from '../store/alphavantage';
+import SelectedStock from './SelectedStock';
+import StockSearch from './StockSearch';
 
 class BuyStocks extends Component {
   constructor() {
@@ -26,41 +28,18 @@ class BuyStocks extends Component {
   }
 
   render() {
-    const { query } = this.state;
-    const { stocks, cash, searchFailed } = this.props;
+    const { cash } = this.props;
     return (
       <div>
         <div>
           <h1>Buy stocks</h1>
           <h2>Cash available: ${(cash / 100).toFixed(2)}</h2>
-          <form id="buy-form" onSubmit={event => this.handleSubmit(event)}>
-            <div>
-              <label>Search by company or ticker symbol:</label>
-              <input
-                name="query"
-                value={query}
-                onChange={event => this.handleChange(event)}
-              />
-              <button type="submit">Search</button>
-            </div>
-            <ul>
-              {stocks.map(stock => {
-                const symbol = stock['1. symbol'];
-                return (
-                  <li key={symbol}>
-                    <Link to={`/portfolio/buy/${symbol}`}>
-                      {symbol} -- {stock['2. name']}
-                    </Link>
-                  </li>
-                );
-              })}
-              {searchFailed ? (
-                <p>No results found. Please try another query.</p>
-              ) : (
-                ''
-              )}
-            </ul>
-          </form>
+          <Route exact path="/portfolio" component={StockSearch} />
+          <Route
+            exact
+            path="/portfolio/buy/:symbol"
+            component={SelectedStock}
+          />
         </div>
       </div>
     );
@@ -70,7 +49,8 @@ class BuyStocks extends Component {
 const mapStateToProps = state => ({
   stocks: state.alphavantage.searchResults,
   searchFailed: state.alphavantage.searchFailed,
-  cash: state.auth.user.cash
+  cash: state.auth.user.cash,
+  selected: state.alphavantage.currentStock['Global Quote']
 });
 
 const mapDispatchToProps = dispatch => ({

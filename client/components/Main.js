@@ -5,7 +5,6 @@ import history from '../history';
 import Login from './Login';
 import UserHome from './UserHome';
 import Signup from './Signup';
-import SelectedStock from './SelectedStock';
 import Transactions from './Transactions';
 import Navbar from './Navbar';
 
@@ -17,13 +16,11 @@ const Main = props => {
       {user ? (
         // Routes below available only for logged in users
         <div className="content">
-          <Route path="/portfolio" component={UserHome} />
-          <Route
-            exact
-            path="/portfolio/buy/:symbol"
-            component={SelectedStock}
-          />
-          <Route exact path="/transactions" component={Transactions} />
+          <Switch>
+            <Route path="/portfolio" component={UserHome} />
+            <Route exact path="/transactions" component={Transactions} />
+            <Route path="/" component={UserHome} />
+          </Switch>
         </div>
       ) : (
         // Routes below available to non-logged in users

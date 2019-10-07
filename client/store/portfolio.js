@@ -73,12 +73,12 @@ const calculateValues = async stockCounts => {
   return { totalValue, values };
 };
 
-const initialState = { totalValue: 0, values: [] };
+const initialState = { totalValue: 0, values: [], isUpdated: false };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case PORTFOLIO_VALUES:
-      return action.portfolio;
+      return { ...action.portfolio, isUpdated: true };
     default:
       return state;
   }

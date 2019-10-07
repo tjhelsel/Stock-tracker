@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 const Transactions = ({ purchases }) => {
   return (
-    <div>
+    <div id="transactions">
       <h1>Transactions</h1>
       <table>
         <thead>
@@ -24,8 +24,8 @@ const Transactions = ({ purchases }) => {
                 <td> Buy </td>
                 <td> {symbol} </td>
                 <td> {qty}</td>
-                <td>$ {price / 10000} </td>
-                <td>$ {((price / 10000) * qty).toFixed(2)}</td>
+                <td>${(price / 10000).toFixed(2)}</td>
+                <td>${((price / 10000) * qty).toFixed(2)}</td>
                 <td>
                   {timestamp.slice(0, 10)} <br />
                   {timestamp.slice(11, 19)}

@@ -51,10 +51,12 @@ tbody tr:nth-child(even) {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin: 0 auto;
+  max-width: 80em;
 }
 
 .main-container > div {
-  width: 50%;
+  width: 40em;
 }
 
 .main-container table {
@@ -132,7 +134,7 @@ body {
   width: 100%;
 }
 
-#buy-form {
+.buy-stocks {
   width: 80%;
   margin: 0 auto;
 }
@@ -146,4 +148,10 @@ body {
 
 ul {
   list-style-type: none;
+}
+
+#transactions {
+  width: 50em;
+  justify-content: center;
+  margin: 0 auto;
 }

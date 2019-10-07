@@ -10,11 +10,16 @@ class Portfolio extends Component {
 
   render() {
     const { firstName, lastName } = this.props.user;
-    const { totalValue, values } = this.props.portfolio;
+    const { totalValue, values, isUpdated } = this.props.portfolio;
     return (
       <div>
         <h1>{`${firstName} ${lastName}'s portfolio`}</h1>
-        <h2>Portfolio value: ${totalValue.toFixed(2)}</h2>
+        {isUpdated ? (
+          <h2>Portfolio value: ${totalValue.toFixed(2)}</h2>
+        ) : (
+          <h2>Calculating portfolio value...</h2>
+        )}
+
         <table>
           <thead>
             <tr>
@@ -33,7 +38,7 @@ class Portfolio extends Component {
                   <td> {value.qty} </td>
                   <td> {value.curPrice}</td>
                   <td>{value.priceTrend}</td>
-                  <td>$ {value.value} </td>
+                  <td>$ {value.value.toFixed(2)} </td>
                 </tr>
               );
             })}

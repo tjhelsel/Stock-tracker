@@ -42,6 +42,17 @@ router.post('/signup', async (req, res, next) => {
   }
 });
 
+router.post('/signout', (req, res, next) => {
+
+  
+  try {
+    req.session.destroy();
+    res.redirect('/');
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.get('/me', (req, res) => {
   res.json(req.session.user);
 });
