@@ -10,7 +10,8 @@
     "build-watch": "webpack -w",
     "start-dev": "webpack -w & nodemon server",
     "seed": "node scripts/seed.js",
-    "heroku-postbuild": "webpack -p"
+    "heroku-postbuild": "webpack -p",
+    "heroku-prebuild": "npm install --dev"
   },
   "repository": {
     "type": "git",
@@ -47,7 +48,6 @@
     "babel-polyfill": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "chai": "^4.2.0",
-    "morgan": "^1.9.1",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "supertest": "^4.0.2",
