@@ -9,7 +9,8 @@
     "build": "webpack",
     "build-watch": "webpack -w",
     "start-dev": "webpack -w & nodemon server",
-    "seed": "node scripts/seed.js"
+    "seed": "node scripts/seed.js",
+    "heroku-postbuild": "webpack -p"
   },
   "repository": {
     "type": "git",
