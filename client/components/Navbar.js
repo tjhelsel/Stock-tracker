@@ -19,14 +19,24 @@ class Navbar extends Component {
         <h1>Stock-Tracker</h1>
         {user ? (
           <div className="links">
-            <Link to="/portfolio">Buy stocks</Link>
-            <Link to="/transactions">Transactions</Link>
-            <a onClick={event => this.signOut(event)}>Sign out</a>
+            <Link className="navlink" to="/portfolio">
+              Buy stocks
+            </Link>
+            <Link className="navlink" to="/transactions">
+              Transactions
+            </Link>
+            <Link className="navlink" to="/logout">
+              Log out
+            </Link>
           </div>
         ) : (
           <div className="links">
-            <Link to="/login">Log in</Link>
-            <Link to="/signup">Sign up</Link>
+            <Link className="navlink" to="/login">
+              Log in
+            </Link>
+            <Link className="navlink" to="/signup">
+              Sign up
+            </Link>
           </div>
         )}
       </nav>

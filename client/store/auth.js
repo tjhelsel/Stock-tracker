@@ -5,7 +5,7 @@ const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 const LOGIN_FAILURE = 'LOGIN_FAILURE';
 const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 const SIGNUP_FAILURE = 'SIGNUP_FAILURE';
-const LOGOUT = 'LOGOUT';
+export const LOGOUT = 'LOGOUT';
 
 const loginSuccess = user => ({
   type: LOGIN_SUCCESS,
@@ -20,7 +20,7 @@ const logoutSuccess = () => ({
   type: LOGOUT
 });
 
-export const logOut = () => {
+export const logout = () => {
   return async dispatch => {
     try {
       await axios.post('/logout');

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { LOGOUT } from './auth';
 
 const apiKey = process.env.API_KEY;
 
@@ -79,6 +80,8 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case PORTFOLIO_VALUES:
       return { ...action.portfolio, isUpdated: true };
+    case LOGOUT:
+      return initialState;
     default:
       return state;
   }

@@ -7,6 +7,7 @@ import UserHome from './UserHome';
 import Signup from './Signup';
 import Transactions from './Transactions';
 import Navbar from './Navbar';
+import Logout from './Logout';
 
 const Main = props => {
   const { user } = props;
@@ -19,6 +20,7 @@ const Main = props => {
           <Switch>
             <Route path="/portfolio" component={UserHome} />
             <Route exact path="/transactions" component={Transactions} />
+            <Route exact path="/logout" component={Logout} />
             <Route path="/" component={UserHome} />
           </Switch>
         </div>

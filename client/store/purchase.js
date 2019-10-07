@@ -1,5 +1,6 @@
 import axios from 'axios';
 import history from '../history';
+import { LOGOUT } from './auth';
 
 const GOT_PURCHASES = 'GOT_PURCHASES';
 const NEW_PURCHASE = 'NEW_PURCHASE';
@@ -49,6 +50,8 @@ const reducer = (state = initialState, action) => {
       return action.purchases;
     case NEW_PURCHASE:
       return [...state, action.purchase];
+    case LOGOUT:
+      return initialState;
     default:
       return state;
   }

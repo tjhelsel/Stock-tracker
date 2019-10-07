@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {LOGOUT} from './auth';
 const searchKey = process.env.SEARCH_KEY;
 
 const SEARCH_RESULTS = 'SEARCH_RESULTS';
@@ -63,6 +64,8 @@ const reducer = (state = initialState, action) => {
       return { ...state, currentStock: action.stock };
     case SEARCH_FAILED:
       return { ...state, searchFailed: true };
+    case LOGOUT:
+      return initialState;
     default:
       return state;
   }
